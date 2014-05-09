@@ -51,19 +51,26 @@ public class HanbaiKanri {
      */
     public Integer tyumon(String itemName, int price, int num) {
         Integer zaikoNum = zaiko.get(itemName);
-        if (zaikoNum != null && num <= zaikoNum) {
+        if (zaikoNum != null && num <= zaikoNum) { // 注文が可能な場合
+            // 対応する在庫を減らす
             int newZaikoNum = zaikoNum - num;
             zaiko.put(itemName, newZaikoNum);
+            // 注文を保存する
             int tyumon = this.tyumon.get(itemName);
             int newTyumon = tyumon + num;
             this.tyumon.put(itemName, newTyumon);
+            // 合計金額の計算：価格×数量に消費税（5%）
             int uriage = (int) (price * num * 1.05);
+            // 合計金額を売上金額に追加
             this.uriage += uriage;
+            // 商品の在庫数を表示する。
             System.out.println("在庫数（" + itemName + "）: " + newZaikoNum);
+            // 商品の売上額を表示する。
             System.out.println("売上（" + itemName + "）: " + (int) (price * newTyumon * 1.05));
+            // 総売上額を返す
             return this.uriage;
-        } else {
-            System.out.println("注文が失敗しました");
+        } else { // 注文が失敗する場合
+            // nullを返す
             return null;
         }
     }
