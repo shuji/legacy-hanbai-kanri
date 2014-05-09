@@ -24,4 +24,11 @@ public class HanbaiKanriTest {
         Integer uriage = hanbaiKanri.tyumon("お弁当", 300, 2);
         assertThat(uriage, is(nullValue()));
     }
+
+
+    @Test
+    public void test3() {
+        HanbaiKanri hanbaiKanri = HanbaiKanri.getInstance();
+        hanbaiKanri.addZaiko("雑誌", 2);
+    }
 }
