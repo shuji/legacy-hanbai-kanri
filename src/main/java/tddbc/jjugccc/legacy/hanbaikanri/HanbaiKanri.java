@@ -1,7 +1,6 @@
 package tddbc.jjugccc.legacy.hanbaikanri;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 販売管理システム。
@@ -24,13 +23,13 @@ public class HanbaiKanri {
     /** 総売上額 */
     private int uriage = 0;
     /** 注文数を保持するマップ */
-    private Map<String, Integer> tyumon = new HashMap<>();
+    private HashMap<String, Object> tyumon = new HashMap<String, Object>();
     /** 在庫数を保持するマップ */
-    private Map<String, Integer> zaiko = new HashMap<>();
+    private HashMap<String, Object> zaiko = new HashMap<String, Object>();
 
     private HanbaiKanri() {
-        zaiko.put("雑誌", 5);
-        tyumon.put("雑誌", 0);
+        zaiko.put("雑誌", Integer.valueOf(5));
+        tyumon.put("雑誌", Integer.valueOf(0));
     }
 
     /**
@@ -50,14 +49,14 @@ public class HanbaiKanri {
      * @return 総売上額、注文が失敗した場合はnull
      */
     public Integer tyumon(String itemName, int price, int num) {
-        Integer zaikoNum = zaiko.get(itemName);
+        Integer zaikoNum = (Integer) zaiko.get(itemName);
         if (zaikoNum != null && num <= zaikoNum) { // 注文が可能な場合
             // 対応する在庫を減らす
-            int newZaikoNum = zaikoNum - num;
+            Integer newZaikoNum = zaikoNum - num;
             zaiko.put(itemName, newZaikoNum);
             // 注文を保存する
-            int tyumon = this.tyumon.get(itemName);
-            int newTyumon = tyumon + num;
+            int tyumon = (int) this.tyumon.get(itemName);
+            Integer newTyumon = tyumon + num;
             this.tyumon.put(itemName, newTyumon);
             // 合計金額の計算：価格×数量に消費税（5%）
             int uriage = (int) (price * num * 1.05);
@@ -85,6 +84,6 @@ public class HanbaiKanri {
      */
     public void addZaiko(String itemName, int num) {
         // 在庫を登録
-        zaiko.put(itemName, num);
+        zaiko.put(itemName, Integer.valueOf(num));
     }
 }
