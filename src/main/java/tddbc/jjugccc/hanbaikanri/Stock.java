@@ -13,12 +13,13 @@ import java.util.HashMap;
 @SuppressWarnings("serial")
 public class Stock extends HashMap<Item, Integer>{
 
-    public void append(Item item, int num) {
+    @Override
+    public Integer put(Item item, Integer num) {
         Integer stock = this.get(item);
         if (stock == null) {
-            this.put(item,  num);
+            return super.put(item,  num);
         } else {
-            this.put(item, stock + num);
+            return super.put(item, stock + num);
         }
     }
 

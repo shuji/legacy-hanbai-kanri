@@ -12,16 +12,16 @@ public class Order {
 
     Item item;
     int num;
-    int taxRate;
+    TaxRate taxRate;
 
-    public Order(Item item, int num, int taxRate) {
+    public Order(Item item, int num, TaxRate taxRate) {
         this.item = item;
         this.num = num;
         this.taxRate = taxRate;
     }
 
     public int getAmount() {
-        return item.price * num * (100 + taxRate) / 100;
+        return taxRate.calculate(item.price * num);
     }
     
     public String toOutputString() {
