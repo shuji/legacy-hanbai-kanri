@@ -74,4 +74,17 @@ public class HanbaiKanri {
             return null;
         }
     }
+
+    /**
+     * 商品在庫を登録する。
+     *
+     * 販売管理システムに商品在庫を登録する。
+     * @param ietmName 商品名
+     * @param num 数量
+     * @since 1.1
+     */
+    public void addZaiko(String itemName, int num) {
+        // 在庫を登録
+        zaiko.put(itemName, num);
+    }
 }
