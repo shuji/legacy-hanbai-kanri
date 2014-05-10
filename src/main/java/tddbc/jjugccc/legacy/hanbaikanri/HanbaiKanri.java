@@ -1,7 +1,6 @@
 package tddbc.jjugccc.legacy.hanbaikanri;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 販売管理システム。
@@ -9,6 +8,7 @@ import java.util.Map;
  * @author shuji
  * @since 1.0
  */
+@SuppressWarnings("all")
 public class HanbaiKanri {
 
     private static HanbaiKanri INSTANCE = new HanbaiKanri();
@@ -24,9 +24,9 @@ public class HanbaiKanri {
     /** 総売上額 */
     private int uriage = 0;
     /** 注文数を保持するマップ */
-    private Map<String, Integer> tyumon = new HashMap<>();
+    private HashMap tyumon = new HashMap();
     /** 在庫数を保持するマップ */
-    private Map<String, Integer> zaiko = new HashMap<>();
+    private HashMap zaiko = new HashMap();
 
     private HanbaiKanri() {
         zaiko.put("雑誌", 5);
@@ -50,13 +50,14 @@ public class HanbaiKanri {
      * @return 総売上額、注文が失敗した場合はnull
      */
     public Integer tyumon(String itemName, int price, int num) {
-        Integer zaikoNum = zaiko.get(itemName);
+        // intにすると何故かNullPointerExceptionが発生する
+        Integer zaikoNum = (Integer) zaiko.get(itemName);
         if (zaikoNum != null && num <= zaikoNum) { // 注文が可能な場合
             // 対応する在庫を減らす
             int newZaikoNum = zaikoNum - num;
             zaiko.put(itemName, newZaikoNum);
             // 注文を保存する
-            int tyumon = this.tyumon.get(itemName);
+            int tyumon = (int) this.tyumon.get(itemName);
             int newTyumon = tyumon + num;
             this.tyumon.put(itemName, newTyumon);
             // 合計金額の計算：価格×数量に消費税（5%）
