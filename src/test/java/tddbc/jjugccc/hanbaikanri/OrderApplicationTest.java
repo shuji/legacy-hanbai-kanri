@@ -9,8 +9,10 @@ import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
 @RunWith(Enclosed.class)
-public class AppTest {
+public class OrderApplicationTest {
 
+    static final TaxRate TAXRATE = new TaxRate(5);
+    
     static final Item MAGAZINE = new Item("雑誌", 500);
     static final Item DVD = new Item("DVD", 2300);
 
@@ -19,8 +21,8 @@ public class AppTest {
         @Test(expected = OutOfStockException.class)
         public void 雑誌を1つ注文すると例外() throws Exception {
             // Setup
-            App sut = new App();
-            Order order = new Order(MAGAZINE, 1, sut.getTaxRate());
+            OrderApplication sut = new OrderApplication();
+            Order order = new Order(MAGAZINE, 1, TAXRATE);
             // Exercise
             sut.offer(order);
         }
@@ -29,18 +31,18 @@ public class AppTest {
 
     public static class 雑誌の在庫が1の時 {
 
-        App sut;
+        OrderApplication sut;
 
         @Before
         public void setUp() throws Exception {
-            sut = new App();
-            sut.stock.append(MAGAZINE, 1);
+            sut = new OrderApplication();
+            sut.stock.put(MAGAZINE, 1);
         }
 
         @Test
         public void 雑誌を1冊注文する() throws Exception {
             // Setup
-            Order order = new Order(MAGAZINE, 1, sut.getTaxRate());
+            Order order = new Order(MAGAZINE, 1, TAXRATE);
             // Exercise
             sut.offer(order);
             // Verify
@@ -51,7 +53,7 @@ public class AppTest {
         @Test(expected = OutOfStockException.class)
         public void 雑誌を2つ注文すると例外() throws Exception {
             // Setup
-            Order order = new Order(MAGAZINE, 2, sut.getTaxRate());
+            Order order = new Order(MAGAZINE, 2, TAXRATE);
             // Exercise
             sut.offer(order);
         }
@@ -59,7 +61,7 @@ public class AppTest {
         @Test(expected = OutOfStockException.class)
         public void DVDを1つ注文すると例外() throws Exception {
             // Setup
-            Order order = new Order(DVD, 1, sut.getTaxRate());
+            Order order = new Order(DVD, 1, TAXRATE);
             // Exercise
             sut.offer(order);
         }

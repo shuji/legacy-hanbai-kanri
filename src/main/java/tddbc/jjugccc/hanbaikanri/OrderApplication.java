@@ -1,12 +1,15 @@
 package tddbc.jjugccc.hanbaikanri;
 
-public class App {
+/**
+ * 商品注文アプリケーション。
+ *
+ * 注文された商品を在庫から引き当てる。
+ * 注文された商品の合計金額を返す。
+ */
+public class OrderApplication {
 
-    private int taxRate = 5;
-    
     Stock stock = new Stock();
     Orders orders = new Orders();
-    Sales sales = new Sales(orders);
     
     public void offer(Order order) throws OutOfStockException {
         if (!stock.hasStock(order)) {
@@ -16,11 +19,7 @@ public class App {
     }
     
     public int getTotalSales() {
+        Sales sales = new Sales(orders);
         return sales.getTotalSales();
     }
-
-    public int getTaxRate() {
-        return taxRate;
-    }
-
 }
