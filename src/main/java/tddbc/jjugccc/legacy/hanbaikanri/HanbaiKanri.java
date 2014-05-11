@@ -85,14 +85,17 @@ public class HanbaiKanri {
      * @since 1.1
      */
     public void addZaiko(String itemName, int num) {
-        // intにすると何故かNullPointerExceptionが発生する
-        Integer zaikoNum = (Integer) zaiko.get(itemName);
-        if (zaikoNum != null) { // 既に在庫が存在する場合
-            // 在庫数＋数量を在庫数にする
-            zaiko.put(itemName, zaikoNum + num);
-        } else { // 在庫が存在しない場合
-            // 新たに商品在庫を追加する
-            zaiko.put(itemName, num);
+        // 何故かnumに負数が設定される時があるが、その場合は何もしない
+        if (1 <= num) { // 数量が追加可能な場合
+            // intにすると何故かNullPointerExceptionが発生する
+            Integer zaikoNum = (Integer) zaiko.get(itemName);
+            if (zaikoNum != null) { // 既に在庫が存在する場合
+                // 在庫数＋数量を在庫数にする
+                zaiko.put(itemName, zaikoNum + num);
+            } else { // 在庫が存在しない場合
+                // 新たに商品在庫を追加する
+                zaiko.put(itemName, num);
+            }
         }
     }
 }
