@@ -60,6 +60,12 @@ public class HanbaiKanri {
             int tyumon = (int) this.tyumon.get(itemName);
             int newTyumon = tyumon + num;
             this.tyumon.put(itemName, newTyumon);
+/*
+            平成9年 3月 31日 消費税の修正 テスト一郎
+            // 売上は価格×数量に消費税（3%）を加味する
+            int i = price * num;
+            int uriage = (int) (i * 1.03);
+*/
             // 合計金額の計算：価格×数量に消費税（5%）
             int uriage = (int) (price * num * 1.05);
             // 合計金額を売上金額に追加
