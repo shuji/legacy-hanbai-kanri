@@ -37,17 +37,14 @@ public class HanbaiKanri {
      * 注文を追加する。
      * 
      * 注文を追加したならば、対応する在庫が減る。
-     * 減った在庫は注文として保存する。
-     * 価格×数量に消費税（5%）を追加した合計金額を売上金額に追加する。
-     * このモジュールは総売上額を結果として返すこと。
+     * 価格×数量に5%を追加した合計金額を売上金額に追加する。
      * 
      * 注文が追加されたならば、商品の在庫数と売上額を表示する。
-     * 在庫が足りない場合は注文は失敗する。
      * 
      * @param itemName 商品名
      * @param price 価格
      * @param num 数量
-     * @return 総売上額、注文が失敗した場合はnull
+     * @return 総売上額
      */
     public Integer tyumon(String itemName, int price, int num) {
         // intにすると何故かNullPointerExceptionが発生する
