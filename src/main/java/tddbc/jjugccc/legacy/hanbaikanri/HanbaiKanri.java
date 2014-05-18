@@ -6,7 +6,7 @@ import java.util.HashMap;
  * 販売管理システム。
  * 
  * @author shuji
- * @since 1.0
+ * @since 平成5年 2月 21日
  */
 @SuppressWarnings("all")
 public class HanbaiKanri {
@@ -73,6 +73,10 @@ public class HanbaiKanri {
             // 商品の在庫数を表示する。
             System.out.println("在庫数（" + itemName + "）: " + newZaikoNum);
             // 商品の売上額を表示する。
+/*
+            平成9年 4月 21日 バグ修正 — 表示される売上が5%対応されていなかった
+            System.out.println("売上（" + itemName + "）: " + (int) (price * newTyumon * 1.03));
+*/
             System.out.println("売上（" + itemName + "）: " + (int) (price * newTyumon * 1.05));
             // 総売上額を返す
             return this.uriage;
@@ -82,16 +86,14 @@ public class HanbaiKanri {
         }
     }
 
-    /**
-     * 商品在庫を登録する。
-     *
-     * 販売管理システムに商品在庫を登録する。
-     * @param ietmName 商品名
-     * @param num 数量
-     * @since 1.1
-     */
+/*
+   平成5年 3月 23日 追加
+ */
     public void addZaiko(String itemName, int num) {
         // 在庫を登録
         zaiko.put(itemName, num);
     }
+/*
+    平成5年 3月 23日 追加  ここまで
+ */
 }
